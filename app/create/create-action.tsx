@@ -11,6 +11,25 @@ export default async function createAction(values: z.infer<typeof createType>) {
     return { error: "Choix invalides", success: null }
   }
 
+  const search = await prisma.choice.findFirst({
+    where: {
+      OR: [
+        {
+          choice1: checkedValues.data.choice1,
+          choice2: checkedValues.data.choice2,
+        },
+        {
+          choice1: checkedValues.data.choice2,
+          choice2: checkedValues.data.choice1,
+        }
+      ]
+    },
+  })
+
+  if (search) {
+    return { error: "Ce dilemme existe déjà", success: null }
+  }
+
   await prisma.choice.create({
     data: {
       choice1: checkedValues.data.choice1,
