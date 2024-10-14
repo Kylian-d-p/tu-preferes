@@ -14,15 +14,11 @@ datasource db {
 }
 
 model Choice {
-  id      Int      @id @default(autoincrement())
-  choice1 String   @db.Char(255)
-  choice2 String   @db.Char(255)
-  Result  Result[]
-}
+  id       String @id @default(uuid())
+  choice1  String @db.Char(255)
+  choice2  String @db.Char(255)
+  counter1 Int    @default(0)
+  counter2 Int    @default(0)
 
-model Result {
-  id       Int    @id @default(autoincrement())
-  choiceId Int
-  winner   Int
-  choice   Choice @relation(fields: [choiceId], references: [id])
+  @@map("choice")
 }
