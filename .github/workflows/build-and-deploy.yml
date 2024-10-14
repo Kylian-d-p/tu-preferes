@@ -1,0 +1,30 @@
+name: Build And Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.9.0]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build with SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /root/tu-preferes
+            git pull
+            pnpm install
+            pnpm dlx prisma migrate deploy
+            pnpm dlx prisma generate
+            pnpm run build
+            pm2 restart tu-preferes-app
