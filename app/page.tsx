@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import Choices from "./choices";
 
+export const revalidate = 0;
+
 export default async function Home() {
 
   const choicesCount = await prisma.choice.count();
