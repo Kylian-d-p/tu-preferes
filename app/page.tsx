@@ -20,7 +20,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="relative grid grid-cols-1 items-center justify-items-center flex-1 lg:grid-cols-2">
+    <main className="relative flex-1">
       <Choices choice={{
         id: choice.id,
         choice1: {
@@ -32,7 +32,7 @@ export default async function Home() {
           votes: choice.counter2,
         },
       }} />
-      <Link href="/create" className="absolute bottom-10">
+      <Link href="/create" className="absolute bottom-10 left-1/2 -translate-x-1/2">
         <Button variant={"secondary"} className="border border-background">Créer un Tu Préfères</Button>
       </Link>
     </main>
