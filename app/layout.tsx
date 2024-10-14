@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,8 +14,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`font-body antialiased`}>
-        {children}
+      <body className={`font-body antialiased flex flex-col justify-between min-h-screen gap-2`}>
+        <div className="h-full flex flex-col flex-1">
+          <header className="p-4 border border-bottom">
+            <Link href="/">
+              <h1 className="text-2xl font-bold">Tu préfères ?</h1>
+            </Link>
+          </header>
+          {children}
+        </div>
+        <footer className="flex flex-col items-center py-2">
+          <p>Ce site n&apos;utilise pas de cookies</p>
+          <p>Les informations ne sont ni cédées ni revendues</p>
+        </footer>
       </body>
     </html>
   );

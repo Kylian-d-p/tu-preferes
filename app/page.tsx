@@ -1,5 +1,7 @@
-import Choice from "@/components/choice";
+import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
+import Choices from "./choices";
 
 export default async function Home() {
 
@@ -7,7 +9,7 @@ export default async function Home() {
 
   const choice = await prisma.choice.findFirst({
     skip: Math.floor(Math.random() * choicesCount),
-  })
+  });
 
   if (!choice) {
     return (
@@ -16,19 +18,21 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex flex-col gap-2">
-      <header className="p-4">
-        <h1 className="text-4xl font-bold">Tu préfères ?</h1>
-      </header>
-      <div className="relative grid grid-cols-1 gap-5 sm:grid-cols-2 justify-items-center">
-        <Choice>
-          <p className="text-xl font-bold">{choice.choice1}</p>
-        </Choice>
-        <Choice>
-          <p className="text-xl font-bold">{choice.choice2}</p>
-        </Choice>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">OU</div>
-      </div>
+    <main className="relative grid grid-cols-1 items-center justify-items-center flex-1 lg:grid-cols-2">
+      <Choices choice={{
+        id: choice.id,
+        choice1: {
+          label: choice.choice1,
+          votes: choice.counter1,
+        },
+        choice2: {
+          label: choice.choice2,
+          votes: choice.counter2,
+        },
+      }} />
+      <Link href="/create" className="absolute bottom-10">
+        <Button variant={"secondary"} className="border border-background">Créer un Tu Préfères</Button>
+      </Link>
     </main>
   );
 }
