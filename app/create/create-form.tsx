@@ -63,7 +63,7 @@ export default function CreateForm() {
           } />
         {error && <p className="text-destructive">{error}</p>}
         {success && <p className="text-green-600">{success}</p>}
-        <Button className="flex items-center gap-2 w-full" disabled={form.formState.isSubmitting} >Mettre en ligne</Button>
+        <Button className="flex items-center gap-2 w-full" disabled={form.formState.isSubmitting || Boolean(success)} >Mettre en ligne</Button>
       </form>
     </Form>
   )
