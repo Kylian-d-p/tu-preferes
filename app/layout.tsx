@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={`font-body antialiased flex flex-col justify-between min-h-screen gap-2`}>
         <div className="h-full flex flex-col flex-1">
-          <header className="p-4 border border-bottom">
+          <header className="p-4 border border-bottom flex">
             <Link href="/">
               <h1 className="text-2xl font-bold">Tu préfères ?</h1>
             </Link>

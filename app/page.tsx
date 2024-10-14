@@ -5,13 +5,19 @@ import Choices from "./choices";
 
 export const revalidate = 0;
 
-export default async function Home() {
+export default async function Home(props: { searchParams: string }) {
 
-  const choicesCount = await prisma.choice.count();
+  const searchParams = new URLSearchParams(props.searchParams);
 
-  const choice = await prisma.choice.findFirst({
-    skip: Math.floor(Math.random() * choicesCount),
-  });
+  const choice = searchParams.get("id") ?
+    await prisma.choice.findFirst({
+      where: {
+        id: searchParams.get("id") ?? "",
+      }
+    })
+    : await prisma.choice.findFirst({
+      skip: Math.floor(Math.random() * (await prisma.choice.count())),
+    });
 
   if (!choice) {
     return (
