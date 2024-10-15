@@ -14,22 +14,24 @@ datasource db {
 }
 
 model Choice {
-  id        String   @id @default(uuid())
-  choice1   String   @db.Char(255)
-  choice2   String   @db.Char(255)
-  counter1  Int      @default(0)
-  counter2  Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  id             String           @id @default(uuid())
+  choice1        String           @db.Char(255)
+  choice2        String           @db.Char(255)
+  counter1       Int              @default(0)
+  counter2       Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  PlaylistChoice PlaylistChoice[]
 
   @@map("choice")
 }
 
 model Playlist {
-  id        String   @id @default(uuid())
-  title     String   @db.Char(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  id             String           @id @default(uuid())
+  title          String           @db.Char(255)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  PlaylistChoice PlaylistChoice[]
 
   @@map("playlist")
 }
@@ -40,6 +42,8 @@ model PlaylistChoice {
   choiceId   String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
+  choice     Choice   @relation(fields: [choiceId], references: [id])
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
 
   @@map("playlist_choice")
 }
