@@ -23,6 +23,11 @@ export default function CreatePlaylistForm() {
   const { toast } = useToast()
 
   const savePlaylist = async () => {
+    if (title.length <= 0) {
+      setError("Le titre de la playlist est requis")
+      return
+    }
+    
     const createdPlaylist = await createPlaylistAction({ choices: choices.map(choice => choice.id), title })
 
     if (createdPlaylist && createdPlaylist.error) {
