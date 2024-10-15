@@ -57,56 +57,60 @@ export default function CreateForm() {
   }, [copied]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-2">
-        <FormField
-          control={form.control}
-          name="choice1"
-          render={({ field }) =>
-            <FormItem>
-              <FormLabel>Choix 1</FormLabel>
-              <FormControl>
-                <Input placeholder={"Mourir noyé"} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          } />
-        <FormField
-          control={form.control}
-          name="choice2"
-          render={({ field }) =>
-            <FormItem>
-              <FormLabel>Choix 2</FormLabel>
-              <FormControl>
-                <Input placeholder={"Mourir brûlé"} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          } />
-        {error && <p className="text-destructive">{error}</p>}
-        {success && <p className="text-green-600">{success}</p>}
-        <Dialog open={createdOpen} onOpenChange={setCreatedOpen}>
-          <DialogContent>
-            <DialogHeader className="flex flex-col gap-2">
-              <DialogTitle>Le dilemme a été mis en ligne avec succès !</DialogTitle>
-              <DialogDescription>Partagez le lien suivant pour que vos amis puissent voter</DialogDescription>
-            </DialogHeader>
-            <div className="flex justify-center gap-2">
-              <p>{createdChoice?.choice1} <span className="text-xs font-bold">VS</span> {createdChoice?.choice2}</p>
-            </div>
-            <Button variant={"secondary"} className="w-full border border-background flex items-center gap-2" onClick={() => {
-              setCopied(true);
-              navigator.clipboard.writeText(`${document.location.origin}/?id=${createdChoice?.id}`);
-            }}>
-              {copied ? <Check /> : <Link2 />} Partager
-            </Button>
-            <DialogFooter>
-              <DialogClose>Fermer</DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-        <Button className="flex items-center gap-2 w-full" disabled={form.formState.isSubmitting || Boolean(success)} >Mettre en ligne</Button>
-      </form>
-    </Form>
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
+            <FormField
+              control={form.control}
+              name="choice1"
+              render={({ field }) =>
+                <FormItem>
+                  <FormLabel>Choix 1</FormLabel>
+                  <FormControl>
+                    <Input placeholder={"Mourir noyé"} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              } />
+            <FormField
+              control={form.control}
+              name="choice2"
+              render={({ field }) =>
+                <FormItem>
+                  <FormLabel>Choix 2</FormLabel>
+                  <FormControl>
+                    <Input placeholder={"Mourir brûlé"} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              } />
+            {error && <p className="text-destructive">{error}</p>}
+            {success && <p className="text-green-600">{success}</p>}
+          </div>
+          <Button className="flex items-center gap-2 w-full" disabled={form.formState.isSubmitting || Boolean(success)} >Mettre en ligne</Button>
+        </form>
+      </Form>
+      <Dialog open={createdOpen} onOpenChange={setCreatedOpen}>
+        <DialogContent>
+          <DialogHeader className="flex flex-col gap-2">
+            <DialogTitle>Le dilemme a été mis en ligne avec succès !</DialogTitle>
+            <DialogDescription>Partagez le lien suivant pour que vos amis puissent voter</DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-center gap-2">
+            <p>{createdChoice?.choice1} <span className="text-xs font-bold">VS</span> {createdChoice?.choice2}</p>
+          </div>
+          <Button variant={"secondary"} className="w-full border border-background flex items-center gap-2" onClick={() => {
+            setCopied(true);
+            navigator.clipboard.writeText(`${document.location.origin}/?id=${createdChoice?.id}`);
+          }}>
+            {copied ? <Check /> : <Link2 />} Partager
+          </Button>
+          <DialogFooter>
+            <DialogClose>Fermer</DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
