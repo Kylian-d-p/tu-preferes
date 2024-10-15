@@ -18,6 +18,7 @@ export default function CreateForm() {
   const [createdChoice, setCreatedChoice] = useState<{ id: string, choice1: string, choice2: string } | null>(null)
   const [createdOpen, setCreatedOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [locationOrigin, setLocationOrigin] = useState<string>("")
 
   const form = useForm({
     resolver: zodResolver(createType),
@@ -55,6 +56,10 @@ export default function CreateForm() {
       }, 3000);
     }
   }, [copied]);
+
+  useEffect(() => {
+    setLocationOrigin(document ? document.location.origin : "")
+  }, [])
 
   return (
     <>
@@ -102,7 +107,7 @@ export default function CreateForm() {
           </div>
           <Button variant={"secondary"} className="w-full border border-background flex items-center gap-2" onClick={() => {
             setCopied(true);
-            navigator.clipboard.writeText(`${document.location.origin}/?id=${createdChoice?.id}`);
+            navigator.clipboard.writeText(`${locationOrigin}/?id=${createdChoice?.id}`);
           }}>
             {copied ? <Check /> : <Link2 />} Partager
           </Button>

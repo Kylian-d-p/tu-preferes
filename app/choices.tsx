@@ -10,6 +10,7 @@ export default function Choices(props: { choice: { id: string, choice1: { label:
   const [copied, setCopied] = useState(false);
   const [votes, setVotes] = useState({ choice1: props.choice.choice1.votes, choice2: props.choice.choice2.votes });
   const [percentages, setPercentages] = useState({ choice1: (props.choice.choice1.votes / (props.choice.choice1.votes + props.choice.choice2.votes)) * 100, choice2: (props.choice.choice2.votes / (props.choice.choice1.votes + props.choice.choice2.votes)) * 100 });
+  const [locationOrigin, setLocationOrigin] = useState<string>("");
 
   const vote = (choiceValue: 1 | 2) => {
     if (showResults) {
@@ -37,6 +38,10 @@ export default function Choices(props: { choice: { id: string, choice1: { label:
   useEffect(() => {
     setPercentages({ choice1: (votes.choice1 / (votes.choice1 + votes.choice2)) * 100, choice2: (votes.choice2 / (votes.choice1 + votes.choice2)) * 100 });
   }, [votes]);
+
+  useEffect(() => {
+    setLocationOrigin(document ? document.location.origin : "")
+  }, []);
 
   return (
     <>
@@ -81,7 +86,7 @@ export default function Choices(props: { choice: { id: string, choice1: { label:
           className="text-lg font-bold hover:scale-105 duration-500 transition-all flex items-center gap-2"
           onClick={() => {
             setCopied(true);
-            navigator.clipboard.writeText(`${window && window.location.origin}/?id=${props.choice.id}`);
+            navigator.clipboard.writeText(`${locationOrigin}/?id=${props.choice.id}`);
           }}
         >
           {copied ? <Check /> : <Copy />}

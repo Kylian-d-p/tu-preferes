@@ -19,6 +19,7 @@ export default function CreatePlaylistForm() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [createdDialogOpen, setCreatedDialogOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [locationOrigin, setLocationOrigin] = useState<string>("")
 
   const { toast } = useToast()
 
@@ -71,6 +72,10 @@ export default function CreatePlaylistForm() {
       }, 3000);
     }
   }, [copied]);
+
+  useEffect(() => {
+    setLocationOrigin(document ? document.location.origin : "")
+  }, [])
 
 
   return (
@@ -149,9 +154,9 @@ export default function CreatePlaylistForm() {
             <DialogDescription>Partagez le lien suivant pour que vos amis puissent voter</DialogDescription>
           </DialogHeader>
           <div className="flex items-center">
-            <Input readOnly value={`${window ? window.location.origin : ""}/playlist/${playlistId}`} className="rounded-r-none" />
+            <Input readOnly value={`${locationOrigin}/playlist/${playlistId}`} className="rounded-r-none" />
             <Button variant={"secondary"} className="flex items-center gap-2 rounded-l-none" onClick={() => {
-              navigator.clipboard.writeText(`${window ? window.location.origin : ""}/playlist/${playlistId}`)
+              navigator.clipboard.writeText(`${locationOrigin}/playlist/${playlistId}`)
               setCopied(true)
               toast({ title: "Lien copié", description: "Collez-le dans le navigateur ou envoyez-le à vos amis" })
             }}>
