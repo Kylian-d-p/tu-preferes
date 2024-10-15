@@ -10,7 +10,7 @@ export default async function CreatePlaylist() {
         <p className="text-muted-foreground">Ajoutez plusieurs dilemmes pour créer une playlist et la partager avec vos amis</p>
         <CreatePlaylistForm />
         <Link href={"/create"} className="w-full">
-          <Button variant={"link"} className="w-full">Créer une dilemme</Button>
+          <Button variant={"link"} className="w-full">Créer un dilemme</Button>
         </Link>
       </div>
     </main>
