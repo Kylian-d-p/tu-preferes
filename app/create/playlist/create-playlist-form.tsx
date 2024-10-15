@@ -17,7 +17,7 @@ export default function CreatePlaylistForm() {
   const [title, setTitle] = useState<string>("")
   const [playlistId, setPlaylistId] = useState<string | null>(null)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
-  const [createdDialogOpen, setCreatedDialogOpen] = useState(true)
+  const [createdDialogOpen, setCreatedDialogOpen] = useState(false)
   const [copied, setCopied] = useState(false)
 
   const { toast } = useToast()
