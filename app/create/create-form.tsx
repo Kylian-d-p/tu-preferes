@@ -15,8 +15,8 @@ import { createType } from "./create-type";
 export default function CreateForm() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
-  const [createdChoice, setCreatedChoice] = useState<{ id: string, choice1: string, choice2: string } | null>({ id: "coucou", choice1: "COUCOU", choice2: "SALUT" })
-  const [createdOpen, setCreatedOpen] = useState(true)
+  const [createdChoice, setCreatedChoice] = useState<{ id: string, choice1: string, choice2: string } | null>(null)
+  const [createdOpen, setCreatedOpen] = useState(false)
   const [copied, setCopied] = useState(false)
 
   const form = useForm({
