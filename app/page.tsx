@@ -26,7 +26,7 @@ export default async function Home(props: { searchParams: string }) {
     counter2: z.number(),
   })).safeParseAsync(choice);
 
-  if (!checkedChoice.success || checkedChoice.data.length !== 2) {
+  if (!checkedChoice.success || (!searchParams.get("id") && checkedChoice.data.length !== 2) || (searchParams.get("id") && checkedChoice.data.length !== 1)) {
     return (
       <main>Une erreur est survenue</main>
     )
