@@ -50,7 +50,7 @@ export default async function Home(props: { searchParams: string }) {
         },
       }} />
       <Link href="/create" className="absolute bottom-10 left-1/2 -translate-x-1/2">
-        <Button variant={"secondary"} className="border border-background">Créer un Tu Préfères</Button>
+        <Button variant={"secondary"} className="border border-background">Créer un dilemme</Button>
       </Link>
     </main>
   );
