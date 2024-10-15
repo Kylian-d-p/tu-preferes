@@ -96,7 +96,7 @@ export default function CreatePlaylistForm() {
           }
         </div>
         {error && <p className="text-destructive">{error}</p>}
-        <Button disabled={choices.length <= 0} onClick={() => { savePlaylist() }}>Enregistrer la playlist</Button>
+        <Button disabled={choices.length <= 0 || !!playlistId || !title} onClick={() => { savePlaylist() }}>Enregistrer la playlist</Button>
       </div>
       <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
         <DialogContent className="flex flex-col gap-5 max-h-[calc(100vh-30px)] overflow-auto">
