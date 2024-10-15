@@ -54,10 +54,14 @@ export default function Choices(props: { choice: { id: string, choice1: { label:
           <Button
             className={"text-lg font-bold hover:scale-105 duration-500 transition-all flex items-center gap-2"}
             onClick={() => {
-              if (props.playlist) {
-                return window && window.location.replace(`/playlist/${props.playlist.id}?index=${props.playlist.index + 1}`);
+              if (!window) {
+                return;
               }
-              window && window.location.replace("/?skip=" + props.choice.id);
+              if (props.playlist) {
+                window.location.replace(`/playlist/${props.playlist.id}?index=${props.playlist.index + 1}`);
+              } else {
+                window.location.replace("/?skip=" + props.choice.id);
+              }
             }}
           >
             {
