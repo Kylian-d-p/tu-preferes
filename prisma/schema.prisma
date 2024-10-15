@@ -24,3 +24,22 @@ model Choice {
 
   @@map("choice")
 }
+
+model Playlist {
+  id        String   @id @default(uuid())
+  title     String   @db.Char(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("playlist")
+}
+
+model PlaylistChoice {
+  id         String   @id @default(uuid())
+  playlistId String
+  choiceId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("playlist_choice")
+}
