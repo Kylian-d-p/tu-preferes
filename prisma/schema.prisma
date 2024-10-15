@@ -14,11 +14,13 @@ datasource db {
 }
 
 model Choice {
-  id       String @id @default(uuid())
-  choice1  String @db.Char(255)
-  choice2  String @db.Char(255)
-  counter1 Int    @default(0)
-  counter2 Int    @default(0)
+  id        String   @id @default(uuid())
+  choice1   String   @db.Char(255)
+  choice2   String   @db.Char(255)
+  counter1  Int      @default(0)
+  counter2  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@map("choice")
 }
