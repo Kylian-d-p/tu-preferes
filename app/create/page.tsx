@@ -11,7 +11,7 @@ export default async function CreateChoice() {
       </div>
       <CreateForm />
       <Link href={"/create/playlist"} className="w-full">
-        <Button variant={"secondary"} className="w-full">Créer une playlist</Button>
+        <Button variant={"link"} className="w-full">Créer une playlist</Button>
       </Link>
     </main>
   )
