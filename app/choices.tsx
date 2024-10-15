@@ -47,7 +47,7 @@ export default function Choices(props: { choice: { id: string, choice1: { label:
         <Button
           className={"text-lg font-bold hover:scale-105 duration-500 transition-all flex items-center gap-2"}
           onClick={() => {
-            document.location.replace("/?skip=" + props.choice.id);
+            window && window.location.replace("/?skip=" + props.choice.id);
           }}
         >
           <RotateCcw />
@@ -57,7 +57,7 @@ export default function Choices(props: { choice: { id: string, choice1: { label:
           className="text-lg font-bold hover:scale-105 duration-500 transition-all flex items-center gap-2"
           onClick={() => {
             setCopied(true);
-            navigator.clipboard.writeText(`${document.location.origin}/?id=${props.choice.id}`);
+            navigator.clipboard.writeText(`${window && window.location.origin}/?id=${props.choice.id}`);
           }}
         >
           {copied ? <Check /> : <Copy />}

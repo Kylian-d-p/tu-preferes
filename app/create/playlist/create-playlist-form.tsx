@@ -144,9 +144,9 @@ export default function CreatePlaylistForm() {
             <DialogDescription>Partagez le lien suivant pour que vos amis puissent voter</DialogDescription>
           </DialogHeader>
           <div className="flex items-center">
-            <Input readOnly value={`${window.location.origin}/playlist/${playlistId}`} className="rounded-r-none" />
+            <Input readOnly value={`${window ? window.location.origin : ""}/playlist/${playlistId}`} className="rounded-r-none" />
             <Button variant={"secondary"} className="flex items-center gap-2 rounded-l-none" onClick={() => {
-              navigator.clipboard.writeText(`${window.location.origin}/playlist/${playlistId}`)
+              navigator.clipboard.writeText(`${window ? window.location.origin : ""}/playlist/${playlistId}`)
               setCopied(true)
               toast({ title: "Lien copié", description: "Collez-le dans le navigateur ou envoyez-le à vos amis" })
             }}>
