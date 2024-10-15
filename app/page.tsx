@@ -16,8 +16,13 @@ export default async function Home(props: { searchParams: string }) {
       }
     })
     : await prisma.choice.findFirst({
-      skip: Math.floor(Math.random() * (await prisma.choice.count())),
-    });
+        where: {
+          id: {
+            not: searchParams.get("skip") ?? "",
+          }
+        },
+        skip: Math.floor(Math.random() * (await prisma.choice.count())),
+      })
 
   if (!choice) {
     return (
