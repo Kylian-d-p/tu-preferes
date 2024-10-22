@@ -25,7 +25,7 @@ export default function RootLayout({
         </div>
         <footer className="flex flex-col items-center py-2">
           <p>Ce site n&apos;utilise pas de cookies</p>
-          <p>Les informations ne sont ni cédées ni revendues</p>
+          <p>Les informations ne sont ni cédées ni revendues, ou alors pour très très cher.</p>
         </footer>
       </body>
     </html>
