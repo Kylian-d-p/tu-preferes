@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
@@ -27,6 +28,7 @@ export default function RootLayout({
           <p>Ce site n&apos;utilise pas de cookies</p>
           <p>Les informations ne sont ni cédées ni revendues, ou alors pour très très cher.</p>
         </footer>
+        <Toaster />
       </body>
     </html>
   );
