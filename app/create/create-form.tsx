@@ -37,6 +37,7 @@ export default function CreateForm() {
 
     if (res && res.success) {
       setSuccess(res.success)
+      form.reset()
 
       setTimeout(() => {
         setSuccess(null)
