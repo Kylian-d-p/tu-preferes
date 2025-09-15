@@ -21,7 +21,6 @@ export default async function Home(props: { searchParams: string }) {
         id: searchParams.get("id") ?? "",
       },
     });
-    return choice;
   } else {
     const excludeSql = excludeIds.length ? Prisma.sql`WHERE id NOT IN (${Prisma.join(excludeIds)})` : Prisma.empty;
 
@@ -31,22 +30,6 @@ export default async function Home(props: { searchParams: string }) {
     ORDER BY RAND()
     LIMIT 2
   `;
-  }
-
-  if (!choice || (Array.isArray(choice) && choice.length === 0)) {
-    return (
-      <main>
-        <div className="flex flex-col gap-2 mx-auto max-w-xl border rounded-lg p-5 mt-10">
-          <p className="font-bold text-xl">Vous avez parcouru tous les dilemmes</p>
-          <Link href="/">
-            <Button variant={"secondary"} className="flex items-center gap-2 w-full">
-              <RotateCcw />
-              Recommencer
-            </Button>
-          </Link>
-        </div>
-      </main>
-    );
   }
 
   const checkedChoice = await z
@@ -66,7 +49,19 @@ export default async function Home(props: { searchParams: string }) {
     (!searchParams.get("id") && checkedChoice.data.length !== 2) ||
     (searchParams.get("id") && checkedChoice.data.length !== 1)
   ) {
-    return <main>Une erreur est survenue</main>;
+    return (
+      <main>
+        <div className="flex flex-col gap-2 mx-auto max-w-xl border rounded-lg p-5 mt-10">
+          <p className="font-bold text-xl">Vous avez parcouru tous les dilemmes</p>
+          <Link href="/">
+            <Button variant={"secondary"} className="flex items-center gap-2 w-full">
+              <RotateCcw />
+              Recommencer
+            </Button>
+          </Link>
+        </div>
+      </main>
+    );
   }
 
   if (checkedChoice.data[0].id === searchParams.get("skip")) {
