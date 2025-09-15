@@ -33,16 +33,18 @@ export default async function Home(props: { searchParams: string }) {
   `;
   }
 
-  if (!choice) {
+  if (!choice || (Array.isArray(choice) && choice.length === 0)) {
     return (
       <main>
-        <p>Vous avez parcouru tous les dilemmes</p>
-        <Link href="/">
-          <Button variant={"secondary"} className="border border-background">
-            <RotateCcw />
-            Recommencer
-          </Button>
-        </Link>
+        <div className="flex flex-col gap-2 mx-auto max-w-xl border rounded-lg p-5 mt-10">
+          <p className="font-bold text-xl">Vous avez parcouru tous les dilemmes</p>
+          <Link href="/">
+            <Button variant={"secondary"} className="flex items-center gap-2 w-full">
+              <RotateCcw />
+              Recommencer
+            </Button>
+          </Link>
+        </div>
       </main>
     );
   }
