@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
+import { RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { z } from "zod";
 import Choices from "./choices";
@@ -9,7 +10,7 @@ export const revalidate = 0;
 export default async function Home(props: { searchParams: string }) {
   const searchParams = new URLSearchParams(props.searchParams);
 
-  const excludeIds: string[] = [];
+  const excludeIds: string[] = searchParams.get("exclude") ? JSON.parse(searchParams.get("exclude") || "[]") : [];
 
   const choice = searchParams.get("id")
     ? await prisma.choice.findMany({
@@ -18,6 +19,20 @@ export default async function Home(props: { searchParams: string }) {
         },
       })
     : await prisma.$queryRaw`SELECT * FROM choice WHERE id NOT IN (${excludeIds.join(",")}) ORDER BY RAND() LIMIT 2`;
+
+  if (!choice) {
+    return (
+      <main>
+        <p>Vous avez parcouru tous les dilemmes</p>
+        <Link href="/">
+          <Button variant={"secondary"} className="border border-background">
+            <RotateCcw />
+            Recommencer
+          </Button>
+        </Link>
+      </main>
+    );
+  }
 
   const checkedChoice = await z
     .array(
