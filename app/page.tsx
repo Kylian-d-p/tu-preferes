@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { z } from "zod";
@@ -12,13 +13,25 @@ export default async function Home(props: { searchParams: string }) {
 
   const excludeIds: string[] = searchParams.get("exclude") ? JSON.parse(searchParams.get("exclude") || "[]") : [];
 
-  const choice = searchParams.get("id")
-    ? await prisma.choice.findMany({
-        where: {
-          id: searchParams.get("id") ?? "",
-        },
-      })
-    : await prisma.$queryRaw`SELECT * FROM choice WHERE id NOT IN (${excludeIds.join(",")}) ORDER BY RAND() LIMIT 2`;
+  let choice: unknown;
+
+  if (searchParams.get("id")) {
+    choice = await prisma.choice.findMany({
+      where: {
+        id: searchParams.get("id") ?? "",
+      },
+    });
+    return choice;
+  } else {
+    const excludeSql = excludeIds.length ? Prisma.sql`WHERE id NOT IN (${Prisma.join(excludeIds)})` : Prisma.empty;
+
+    choice = await prisma.$queryRaw`
+    SELECT * FROM choice
+    ${excludeSql}
+    ORDER BY RAND()
+    LIMIT 2
+  `;
+  }
 
   if (!choice) {
     return (
