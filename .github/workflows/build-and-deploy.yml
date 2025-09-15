@@ -24,7 +24,7 @@ jobs:
             cd /root/tu-preferes
             git pull
             pnpm install
-            pnpm dlx prisma migrate deploy
-            pnpm dlx prisma generate
+            pnpm prisma migrate deploy
+            pnpm prisma generate
             pnpm run build
             pm2 restart tu-preferes-app
