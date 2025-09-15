@@ -117,6 +117,7 @@ export default function Choices(props: {
                   : [];
                 excludeIds.push(props.choice.id);
                 searchParams.set("exclude", JSON.stringify(excludeIds));
+                searchParams.delete("id");
                 url.search = searchParams.toString();
                 window.location.replace(url.toString());
               }
