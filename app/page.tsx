@@ -27,7 +27,7 @@ export default async function Home(props: { searchParams: string }) {
     choice = await prisma.$queryRaw`
     SELECT * FROM choice
     ${excludeSql}
-    ORDER BY RAND()
+    ORDER BY RANDOM()
     LIMIT 2
   `;
   }
