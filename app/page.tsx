@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { Prisma } from "@/lib/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
 import { RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { z } from "zod";
@@ -40,7 +40,7 @@ export default async function Home(props: { searchParams: string }) {
         choice2: z.string(),
         counter1: z.number(),
         counter2: z.number(),
-      })
+      }),
     )
     .safeParseAsync(choice);
 
